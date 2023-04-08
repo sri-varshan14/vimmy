@@ -37,4 +37,8 @@ require("lazy").setup({
         'hrsh7th/vim-vsnip',
     },
     { "windwp/nvim-autopairs",config = function() require("nvim-autopairs").setup {} end, lazy=true },
+    {
+        'nvim-telescope/telescope.nvim', tag = '0.1.1',
+        dependencies = { 'nvim-lua/plenary.nvim' }
+    }
 })
