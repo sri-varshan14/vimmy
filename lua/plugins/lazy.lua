@@ -25,4 +25,5 @@ require("lazy").setup({
         lazy = true,
     },
     { "catppuccin/nvim", as = "catppuccin" },
+    { 'feline-nvim/feline.nvim' },
 })
