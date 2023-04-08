@@ -1,6 +1,6 @@
 require("bufferline").setup{
     options = {
-            mode = "tabs", -- set to "tabs" to only show tabpages instead
+            mode = "buffers", -- set to "tabs" to only show tabpages instead
             themable = true, -- allows highlight groups to be overriden i.e. sets highlights as default
             numbers = "none",-- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
             close_command = "bdelete! %d",       -- can be a string | function, | false see "Mouse actions"
