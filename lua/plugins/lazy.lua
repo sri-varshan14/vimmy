@@ -36,4 +36,5 @@ require("lazy").setup({
         'hrsh7th/cmp-vsnip',
         'hrsh7th/vim-vsnip',
     },
+    { "windwp/nvim-autopairs",config = function() require("nvim-autopairs").setup {} end, lazy=true },
 })

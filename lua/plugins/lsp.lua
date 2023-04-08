@@ -168,7 +168,9 @@ sources = cmp.config.sources({
   -- { name = 'ultisnips' }, -- For ultisnips users.
   -- { name = 'snippy' }, -- For snippy users.
 }, {
-  { name = 'buffer' },
+  { name = 'path' },
+    { name = 'buffer' },
+  
 })
 })
 -- Set configuration for specific filetype.

@@ -1,1 +1,1 @@
-require("themes/catppuccin-config")
+require("themes.catppuccin-config")
