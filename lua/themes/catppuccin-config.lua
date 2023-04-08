@@ -5,6 +5,7 @@ require("catppuccin").setup({
 		enabled = true,
 		path = vim.fn.stdpath("cache") .. "/catppuccin",
 	},
+
 	dim_inactive = {
 		enabled = false,
 		shade = "dark",
