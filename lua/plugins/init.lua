@@ -1,4 +1,5 @@
 require("plugins/lazy")
+require("plugins/lsp")
 require("plugins/nvim-tree-config")
 require("plugins/feline-config")
 require("plugins/nvim-treesitter-config")

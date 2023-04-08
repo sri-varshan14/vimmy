@@ -18,14 +18,22 @@ require("lazy").setup({
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
-        config = 
-            function()
-                require("nvim-tree").setup {}
-            end,
-        lazy = true,
+        config = function() require("nvim-tree").setup {} end, lazy = true,
     },
     { "catppuccin/nvim", as = "catppuccin", lazy = true },
     { 'feline-nvim/feline.nvim', lazy = true },
     { 'nvim-treesitter/nvim-treesitter', lazy = true },
-    {'akinsho/bufferline.nvim', version = "v3.*", dependencies = 'nvim-tree/nvim-web-devicons'}
+    {'akinsho/bufferline.nvim', version = "v3.*", dependencies = 'nvim-tree/nvim-web-devicons', lazy = true},
+    {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/nvim-cmp',
+        'hrsh7th/cmp-vsnip',
+        'hrsh7th/vim-vsnip',
+    },
 })
