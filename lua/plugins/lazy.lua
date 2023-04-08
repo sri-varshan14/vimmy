@@ -27,4 +27,5 @@ require("lazy").setup({
     { "catppuccin/nvim", as = "catppuccin", lazy = true },
     { 'feline-nvim/feline.nvim', lazy = true },
     { 'nvim-treesitter/nvim-treesitter', lazy = true },
+    {'akinsho/bufferline.nvim', version = "v3.*", dependencies = 'nvim-tree/nvim-web-devicons'}
 })
