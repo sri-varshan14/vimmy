@@ -3,7 +3,7 @@ local keymap = vim.keymap.set
 keymap('n', '<Leader>w', ':w<CR>')
 keymap('n', '<Leader>s', ':wall<CR>')
 
-keymap('n', '<Leader>e', ':NvimTreeToggle<CR>')
+keymap('n', '<Leader>e', ':Neotree toggle<CR>')
 
 keymap('n', '<Leader><Space>', ':Telescope find_files<CR>')
 keymap('n', '<Leader>ff', ':Telescope find_files<CR>')

@@ -9,7 +9,7 @@ local feedkey = function(key, mode)
 end
 
 require("mason-lspconfig").setup {
-    ensure_installed = { "lua_ls", "rust_analyzer", "bashls", "clangd", "cmake", "dockerls", "gopls", "jsonls", "tsserver", "marksman", "pyright", "taplo", "tailwindcss" },
+    ensure_installed = { "lua_ls", "rust_analyzer", "bashls", "clangd", "cmake", "dockerls", "gopls", "jsonls", "tsserver", "marksman", "pyright", "taplo", "tailwindcss", "cssls" },
 }
 
 require("mason").setup({
@@ -239,5 +239,8 @@ require('lspconfig')['taplo'].setup {
 capabilities = capabilities
 }
 require('lspconfig')['tailwindcss'].setup {
+capabilities = capabilities
+}
+require('lspconfig')['cssls'].setup {
 capabilities = capabilities
 }

@@ -13,12 +13,35 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-        "nvim-tree/nvim-tree.lua",
-        version = "*",
+        "nvim-neo-tree/neo-tree.nvim",
+        version = "v2.x",
         dependencies = {
-            "nvim-tree/nvim-web-devicons",
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            {
+                's1n7ax/nvim-window-picker',
+                version = "v1.*",
+                config = function()
+                require'window-picker'.setup({
+                        autoselect_one = true,
+                        include_current = false,
+                        filter_rules = {
+                          -- filter using buffer options
+                          bo = {
+                            -- if the file type is one of following, the window will be ignored
+                            filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+
+                            -- if the buffer type is one of following, the window will be ignored
+                            buftype = { 'terminal', "quickfix" },
+                          },
+                        },
+                        other_win_hl_color = '#e35e4f',
+                      })
+                end,
+            }
         },
-        config = function() require("nvim-tree").setup {} end, lazy = true,
+        lazy = true,
     },
     { "catppuccin/nvim", as = "catppuccin", lazy = true },
     { 'feline-nvim/feline.nvim', lazy = true },
@@ -39,13 +62,7 @@ require("lazy").setup({
     { "windwp/nvim-autopairs",config = function() require("nvim-autopairs").setup {} end, lazy=true },
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        dependencies = { 'nvim-lua/plenary.nvim' }
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        lazy = true,
     },
-    {
-      "folke/noice.nvim",
-      dependencies = {
-        "MunifTanjim/nui.nvim",
-        "rcarriga/nvim-notify",
-        }
-    }
 })
