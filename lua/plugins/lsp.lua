@@ -189,6 +189,12 @@ local on_attach = function(client)
     require("lsp-format").on_attach(client)
 end
 
+local on_attach_rust = function(client)
+    require("lsp-format").on_attach(client)
+    require('rust-tools').inlay_hints.enable()
+    require 'rust-tools'.expand_macro.expand_macro()
+end
+
 local prettier = {
     formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],
     formatStdin = true,
@@ -202,7 +208,7 @@ require('lspconfig')['lua_ls'].setup {
 }
 require('lspconfig')['rust_analyzer'].setup {
     capabilities = capabilities,
-    on_attach = on_attach
+    on_attach = on_attach_rust
 }
 require('lspconfig')['bashls'].setup {
     capabilities = capabilities,
