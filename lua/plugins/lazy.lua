@@ -65,4 +65,5 @@ require("lazy").setup({
         dependencies = { 'nvim-lua/plenary.nvim' },
         lazy = true,
     },
+    { "lukas-reineke/lsp-format.nvim", lazy=true },
 })
