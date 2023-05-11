@@ -20,3 +20,4 @@ set.termguicolors = true
 vim.env.FZF_DEFAULT_OPTS = '--layout=reverse'
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+

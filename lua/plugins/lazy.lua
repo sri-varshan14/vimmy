@@ -67,4 +67,17 @@ require("lazy").setup({
     },
     { "lukas-reineke/lsp-format.nvim", lazy = true },
     { 'neovim/nvim-lspconfig',         dependencies = 'simrat39/rust-tools.nvim',                  lazy = true },
+    {
+        'chipsenkbeil/distant.nvim',
+        branch = 'v0.2',
+        config = function()
+            require('distant').setup {
+                ['*'] = require('distant.settings').chip_default()
+            }
+        end
+    },
+    { 'kdheepak/lazygit.nvim' },
+    {
+        'lewis6991/gitsigns.nvim',
+    },
 })

@@ -4,5 +4,6 @@ require("lsp-format").setup {
             return vim.opt.shiftwidth:get()
         end,
     },
-    yaml = { tab_width = 2 },
+    yaml = { tab_width = 4 },
+    cpp = { tab_width = 4 }
 }
