@@ -8,11 +8,6 @@ local feedkey = function(key, mode)
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
-require("mason-lspconfig").setup {
-    ensure_installed = { "lua_ls", "rust_analyzer", "bashls", "clangd", "cmake", "dockerls", "gopls", "jsonls",
-        "tsserver", "marksman", "pyright", "taplo", "tailwindcss", "cssls" },
-}
-
 require("mason").setup({
     -- The directory in which to install packages.
     --install_root_dir = path.concat { vim.fn.stdpath "data", "mason" },
@@ -105,6 +100,11 @@ require("mason").setup({
         },
     },
 })
+
+require("mason-lspconfig").setup {
+    ensure_installed = { "lua_ls", "rust_analyzer", "bashls", "clangd", "cmake", "dockerls", "gopls", "jsonls",
+        "tsserver", "marksman", "pyright", "taplo", "tailwindcss", "cssls" },
+}
 
 local cmp = require 'cmp'
 cmp.setup({
@@ -262,6 +262,18 @@ require('lspconfig')['tailwindcss'].setup {
     on_attach = on_attach
 }
 require('lspconfig')['cssls'].setup {
+    capabilities = capabilities,
+    on_attach = on_attach
+}
+require('lspconfig')['cssmodules_ls'].setup {
+    capabilities = capabilities,
+    on_attach = on_attach
+}
+require('lspconfig')['html'].setup {
+    capabilities = capabilities,
+    on_attach = on_attach
+}
+require('lspconfig')['svelte'].setup {
     capabilities = capabilities,
     on_attach = on_attach
 }
