@@ -86,4 +86,11 @@ require("lazy").setup({
     {
         'ggandor/leap.nvim'
     },
+    { 'rose-pine/neovim',     as = 'rose-pine' },
+    {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+
+
 })

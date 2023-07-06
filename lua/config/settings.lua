@@ -3,6 +3,7 @@ vim.g.mapleader = ' '
 
 local set = vim.opt
 
+set.fillchars = 'eob: '
 set.number = true
 set.relativenumber = true
 set.shiftwidth = 4
@@ -20,4 +21,3 @@ set.termguicolors = true
 vim.env.FZF_DEFAULT_OPTS = '--layout=reverse'
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-

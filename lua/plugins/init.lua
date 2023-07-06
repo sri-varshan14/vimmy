@@ -1,6 +1,7 @@
 require("plugins.lazy")
 require("plugins.lsp")
-require("plugins.feline-config")
+--require("plugins.feline-config")
+require("plugins.lualine-config")
 require("plugins.bufferline-config")
 require("plugins.nvim-autopair-config")
 require("plugins.telescope-config")
