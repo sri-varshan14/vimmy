@@ -13,7 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {"nvim-tree/nvim-tree.lua", dependencies="nvim-tree/nvim-web-devicons", lazy=false },
-    {'nvim-lualine/lualine.nvim',requires = { 'nvim-tree/nvim-web-devicons', opt = true }},
+    {'nvim-lualine/lualine.nvim',requires = { 'nvim-tree/nvim-web-devicons', opt = true }, lazy=false},
+    {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons', lazy=false},
 
     -- Themes
     { 'rose-pine/neovim', name = 'rose-pine' }
