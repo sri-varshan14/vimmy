@@ -57,6 +57,23 @@ require('lazy').setup({
         'nvim-treesitter/nvim-treesitter'
     },
 
+    {
+        'lewis6991/gitsigns.nvim'
+    },
+
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({})
+        end
+    },
+
+    {
+        "terrortylor/nvim-comment",
+    },
+
     -- Themes
     { 'rose-pine/neovim', name = 'rose-pine' }
 })
