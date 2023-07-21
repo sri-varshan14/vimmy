@@ -1,4 +1,4 @@
-vim.keymap.set('n', '<Leader>e', ':Neotree toggle<CR>')
+vim.keymap.set('n', '<Leader>e', ':NvimTreeToggle<CR>')
 
 require("nvim-tree").setup {
       auto_reload_on_write = true,
