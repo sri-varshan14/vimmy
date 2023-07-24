@@ -74,6 +74,17 @@ require('lazy').setup({
         "terrortylor/nvim-comment",
     },
 
+    {
+        "lukas-reineke/indent-blankline.nvim"
+    },
+    {
+        'stevearc/oil.nvim',
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
+    {
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
     -- Themes
     { 'rose-pine/neovim', name = 'rose-pine' }
 })
