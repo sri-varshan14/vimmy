@@ -1,3 +1,4 @@
 require("themes.rose-pine-config")
+require("themes.catppuccin-config")
 
-vim.cmd('colorscheme rose-pine')
+vim.cmd('colorscheme catppuccin')

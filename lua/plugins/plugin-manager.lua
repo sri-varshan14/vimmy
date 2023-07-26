@@ -85,6 +85,11 @@ require('lazy').setup({
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
+    {
+        'windwp/nvim-autopairs',
+        'windwp/nvim-ts-autotag'
+    },
     -- Themes
-    { 'rose-pine/neovim', name = 'rose-pine' }
+    { 'rose-pine/neovim', name = 'rose-pine' },
+    { "catppuccin/nvim",  name = "catppuccin", priority = 1000 }
 })
