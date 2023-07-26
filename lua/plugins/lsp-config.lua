@@ -9,6 +9,9 @@ local feedkey = function(key, mode)
 end
 
 require("mason").setup({
+    ensure_installed = {
+        "codelldb"
+    },
     PATH = "prepend",               -- Where Mason should put its bin location in you PATH (default: prepend, append, skip)
     log_level = vim.log.levels.INFO,
     max_concurrent_installers = 10, -- Number of concurrent install

@@ -19,12 +19,7 @@ require('lazy').setup({
     },
 
     {
-        'nvim-lualine/lualine.nvim',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons',
-            opt = true
-        },
-        lazy = false
+        'feline-nvim/feline.nvim'
     },
 
     {
@@ -54,7 +49,12 @@ require('lazy').setup({
         'hrsh7th/cmp-vsnip',
         'hrsh7th/vim-vsnip',
         'lukas-reineke/lsp-format.nvim',
-        'nvim-treesitter/nvim-treesitter'
+        'nvim-treesitter/nvim-treesitter',
+        'mfussenegger/nvim-dap',
+        "jay-babu/mason-nvim-dap.nvim",
+        "rcarriga/nvim-dap-ui",
+        "nvim-telescope/telescope-dap.nvim",
+        'theHamsta/nvim-dap-virtual-text'
     },
 
     {
