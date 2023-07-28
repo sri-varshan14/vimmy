@@ -108,10 +108,22 @@ require("lsp-format").setup { -- lsp-format is used for formating the files
         end,
     },
     yaml = { tab_width = 4 },
-    cpp = { tab_width = 4 },
-    c = { tab_width = 4 },
+    cpp = {
+        tab_width = function()
+            return vim.opt.shiftwidth:get()
+        end,
+    },
+    c = {
+        tab_width = function()
+            return vim.opt.shiftwidth:get()
+        end,
+    },
     cmake = { tab_width = 4 },
-    rust = { tab_width = 4 },
+    rust = {
+        tab_width = function()
+            return vim.opt.shiftwidth:get()
+        end,
+    },
     svelte = { tab_width = 4 },
     html = { tab_width = 4 },
 }
