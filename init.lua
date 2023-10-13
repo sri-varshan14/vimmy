@@ -79,16 +79,37 @@ require('lazy').setup({
         'windwp/nvim-autopairs',
         'windwp/nvim-ts-autotag'
     },
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+    {
+        "kdheepak/lazygit.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        }
+    },
 
     -- Productivity Plugins
     { 'psliwka/vim-smoothie' },
 
     -- Awesome Plugins
     { 'LudoPinelli/comment-box.nvim' },
+    {
+        "utilyre/barbecue.nvim",
+        name = "barbecue",
+        version = "*",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+    },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
+
 
     -- Themes Plugins
-    { 'catppuccin/nvim',             name = 'catppuccin' },
-    { 'rose-pine/neovim',            name = 'rose-pine' },
+    { 'catppuccin/nvim',  name = 'catppuccin' },
+    { 'rose-pine/neovim', name = 'rose-pine' },
 })
 
 --         ╭──────────────────────────────────────────────────────────╮
@@ -713,8 +734,11 @@ cmp.setup.cmdline(':', {
 --         ╭──────────────────────────────────────────────────────────╮
 --         │                  LSP-Attachment Config                   │
 --         ╰──────────────────────────────────────────────────────────╯
-local on_attach = function(client)
+local on_attach = function(client, bufnr)
     require("lsp-format").on_attach(client)
+    if client.server_capabilities["documentSymbolProvider"] then
+        require("nvim-navic").attach(client, bufnr)
+    end
 end
 local prettier = {
     formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],
@@ -951,16 +975,170 @@ require('nvim-autopairs').setup({
 require('nvim-ts-autotag').setup()
 
 --         ╭──────────────────────────────────────────────────────────╮
+--         │                 Indent Blankline Config                  │
+--         ╰──────────────────────────────────────────────────────────╯
+local highlight = {
+    "RainbowRed",
+    "RainbowYellow",
+    "RainbowBlue",
+    "RainbowOrange",
+    "RainbowGreen",
+    "RainbowViolet",
+    "RainbowCyan",
+}
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+vim.g.rainbow_delimiters = { highlight = highlight }
+require("ibl").setup { scope = { highlight = highlight } }
+hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+
+--         ╭──────────────────────────────────────────────────────────╮
+--         │                      LazyGit Config                      │
+--         ╰──────────────────────────────────────────────────────────╯
+vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
+vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
+vim.g.lazygit_floating_window_border_chars = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' } -- customize lazygit popup window border characters
+vim.g.lazygit_floating_window_use_plenary = 1 -- use plenary.nvim to manage floating window if available
+vim.g.lazygit_use_neovim_remote = 1 -- fallback to 0 if neovim-remote is not installed
+
+vim.g.lazygit_use_custom_config_file_path = 0 -- config file path is evaluated if this value is 1
+vim.g.lazygit_config_file_path = '' -- custom config file path
+-- OR
+vim.g.lazygit_config_file_path = {} -- table of custom config file paths
+keymap({ "n", "v" }, "<Leader>gg", "<cmd>LazyGit<CR>", {})
+
+--         ╭──────────────────────────────────────────────────────────╮
 --         │                    Comment-box Config                    │
 --         ╰──────────────────────────────────────────────────────────╯
 local keymap = vim.keymap.set
-local cb = require("comment-box")
+require('comment-box').setup({
+    doc_width = 80, -- width of the document
+    box_width = 60, -- width of the boxes
+    borders = {     -- symbols used to draw a box
+        top = "─",
+        bottom = "─",
+        left = "│",
+        right = "│",
+        top_left = "╭",
+        top_right = "╮",
+        bottom_left = "╰",
+        bottom_right = "╯",
+    },
+    line_width = 70, -- width of the lines
+    line = {         -- symbols used to draw a line
+        line = "─",
+        line_start = "─",
+        line_end = "─",
+    },
+    outer_blank_lines = false,     -- insert a blank line above and below the box
+    inner_blank_lines = false,     -- insert a blank line above and below the text
+    line_blank_line_above = false, -- insert a blank line above the line
+    line_blank_line_below = false, -- insert a blank line below the line
+})
+local cb = require('comment-box')
+keymap({ "n", "v" }, "<Leader>cbl", cb.lbox, {})
+keymap({ "n", "v" }, "<Leader>cbc", cb.ccbox, {})
+keymap("n", "<Leader>cb-", cb.cline, {})
 
-keymap({ "n", "v" }, "<Leader>bb", cb.lbox, {})
-keymap({ "n", "v" }, "<Leader>bc", cb.ccbox, {})
+--         ╭──────────────────────────────────────────────────────────╮
+--         │                     Barbecure Config                     │
+--         ╰──────────────────────────────────────────────────────────╯
+-- triggers CursorHold event faster
+vim.opt.updatetime = 200
+require("barbecue").setup({
+    create_autocmd = false, -- prevent barbecue from updating itself automatically
+})
+vim.api.nvim_create_autocmd({
+    "WinScrolled", -- or WinResized on NVIM-v0.9 and higher
+    "BufWinEnter",
+    "CursorHold",
+    "InsertLeave",
+    -- include this if you have set `show_modified` to `true`
+    "BufModifiedSet",
+}, {
+    group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+    callback = function()
+        require("barbecue.ui").update()
+    end,
+})
 
-keymap("n", "<Leader>bl", cb.cline, {})
-keymap("i", "<M-l>", cb.cline, {})
+--         ╭──────────────────────────────────────────────────────────╮
+--         │                   Todo Comments Config                   │
+--         ╰──────────────────────────────────────────────────────────╯
+require('todo-comments').setup({
+    signs = true,          -- show icons in the signs column
+    sign_priority = 8,     -- sign priority
+    -- keywords recognized as todo comments
+    keywords = {
+        FIX = {
+            icon = " ", -- icon used for the sign, and in search results
+            color = "error", -- can be a hex color, or a named color (see below)
+            alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+            -- signs = false, -- configure signs for some keywords individually
+        },
+        TODO = { icon = " ", color = "info" },
+        HACK = { icon = " ", color = "warning" },
+        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+        TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+    },
+    gui_style = {
+        fg = "NONE",           -- The gui style to use for the fg highlight group.
+        bg = "BOLD",           -- The gui style to use for the bg highlight group.
+    },
+    merge_keywords = true,     -- when true, custom keywords will be merged with the defaults
+    -- highlighting of the line containing the todo comment
+    -- * before: highlights before the keyword (typically comment characters)
+    -- * keyword: highlights of the keyword
+    -- * after: highlights after the keyword (todo text)
+    highlight = {
+        multiline = true,                    -- enable multine todo comments
+        multiline_pattern = "^.",            -- lua pattern to match the next multiline from the start of the matched keyword
+        multiline_context = 10,              -- extra lines that will be re-evaluated when changing a line
+        before = "",                         -- "fg" or "bg" or empty
+        keyword = "wide",                    -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
+        after = "fg",                        -- "fg" or "bg" or empty
+        pattern = [[.*<(KEYWORDS)\s*:]],     -- pattern or table of patterns, used for highlighting (vim regex)
+        comments_only = true,                -- uses treesitter to match keywords in comments only
+        max_line_len = 400,                  -- ignore lines longer than this
+        exclude = {},                        -- list of file types to exclude highlighting
+    },
+    -- list of named colors where we try to extract the guifg from the
+    -- list of highlight groups or use the hex color if hl not found as a fallback
+    colors = {
+        error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+        warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
+        info = { "DiagnosticInfo", "#2563EB" },
+        hint = { "DiagnosticHint", "#10B981" },
+        default = { "Identifier", "#7C3AED" },
+        test = { "Identifier", "#FF00FF" }
+    },
+    search = {
+        command = "rg",
+        args = {
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+        },
+        -- regex that will be used to match keywords.
+        -- don't replace the (KEYWORDS) placeholder
+        pattern = [[\b(KEYWORDS):]],     -- ripgrep regex
+        -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
+    },
+})
 
 --         ╭──────────────────────────────────────────────────────────╮
 --         │                  Catppuccin Theme Config                 │
